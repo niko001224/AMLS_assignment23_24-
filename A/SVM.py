@@ -20,7 +20,7 @@ X_trainreshaped, y_trainreshaped = datareshape(X_train, y_train)
 X_valreshaped, y_valreshaped = datareshape(X_val, y_val)
 X_testreshaped, y_testreshaped = datareshape(X_test, y_test)
 
-# Create SVM classifier (kernal: linear, rbf, poly, sigmoid )
+# Create SVM classifier (kernal choose from: linear, rbf, poly, sigmoid )
 clf = svm.SVC(kernel='rbf')
 
 # Train the model
@@ -36,7 +36,7 @@ report = classification_report(y_valreshaped, y_pred)
 print("SVM Classification Report:")
 print(report)
 
-# 通过网格搜索调整C值和gamma
+# Finding the best C & gamma value
 param_grid = {'C': [0.1, 1, 10], 'gamma': [0.01, 0.1, 1]}
 grid_search = GridSearchCV(SVC(kernel='rbf'), param_grid, cv=5)
 grid_search.fit(X_trainreshaped, y_trainreshaped)

@@ -1,11 +1,12 @@
 import numpy as np
-from A.SVMM import svm_classification
+from A.function import svm_classification
 from A.DataReshape import datareshape
 
-#############    TaskA     ############
+#############    TaskA     ###############
 # Use four machine learning methods to solve the problem: SVM, KNN, Logistic Regression, Random Forest
-# As the data of the images are all 3D, I reshaped the data from 3D to 2D for the classification
-############     TaskA     ############
+# As the data of the images are all 3D, reshape the data from 3D to 2D for the classification
+# 
+############     TaskA     ###############
 
 # Load data
 dataA = np.load('./Datasets/PneumoniaMNIST/pneumoniamnist.npz')
@@ -25,5 +26,6 @@ accuracy, report = svm_classification(X_trainAreshaped, y_trainAreshaped, X_test
 print(f"Accuracy Training of SVM: {accuracy * 100:.2f}%")
 print("SVM Classification Report:")
 print(report)
+
 
 
