@@ -1,9 +1,11 @@
 import tensorflow as tf
-from keras import layers, models
+from keras import layers, models, optimizers
 import numpy as np
 from keras.utils import to_categorical
+import matplotlib.pyplot as plt
 
-data = np.load('C:/Users/32216/Desktop/AMLS/AMLS_23-24_SN12345678/AMLS_assignment23_24-/Datasets/PathMNIST/pathmnist.npz')
+
+data = np.load('./Datasets/PathMNIST/pathmnist.npz')
 X_train = data['train_images']  
 y_train = data['train_labels']
 X_val = data['val_images']
@@ -14,29 +16,57 @@ num_classes = 9
 y_train_one_hot = to_categorical(y_train, num_classes)
 y_val_one_hot = to_categorical(y_val, num_classes)
 
-# CNN Model
-model = models.Sequential()
-model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(width, height, channels)))
-model.add(layers.MaxPooling2D((2, 2)))
-model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-model.add(layers.MaxPooling2D((2, 2)))
-model.add(layers.Conv2D(128, (3, 3), activation='relu'))
-model.add(layers.MaxPooling2D((2, 2)))
-model.add(layers.Flatten())
-model.add(layers.Dense(128, activation='relu'))
-model.add(layers.Dense(num_classes, activation='softmax'))
-
-# Compile model
+model = models.Sequential([
+    layers.Conv2D(32, 
+                  (3, 3), 
+                  activation='relu', 
+                  input_shape=(width, height, channels)), 
+    layers.MaxPooling2D((2, 2)),
+    layers.Conv2D(128, 
+                  (3,3), 
+                  activation = 'relu'),
+    layers.MaxPooling2D((2, 2)),
+    layers.Conv2D(256, 
+                  (3,3), 
+                  activation = 'relu'), 
+    layers.MaxPooling2D((2, 2)),
+    layers.Flatten(), 
+    layers.Dense(128, activation = 'relu'), 
+    layers.Dense(num_classes, activation = 'softmax'),  
+]) 
+model.summary()
+  
+ 
+# Compile the model
 model.compile(optimizer='adam',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-# Train model
-model.fit(X_train, y_train_one_hot, epochs=10, batch_size=32, validation_data=(X_val, y_val_one_hot))
+#Train model
+history = model.fit(X_train, y_train_one_hot, 
+                 epochs=20, 
+                 batch_size=16, 
+                 shuffle = True,
+                 validation_data=(X_val, y_val_one_hot),
+                 verbose = 2)
 
-# Calculate accuracy
 test_loss, test_acc = model.evaluate(X_val, y_val_one_hot)
 print(f'Test accuracy: {test_acc * 100:.2f}%')
 
-# Make prediction
-predictions = model.predict(X_val)
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+epochs = range(len(acc))
+
+plt.plot(epochs,acc, 'b', label='Training accuracy')
+plt.plot(epochs, val_acc, 'r', label='validation accuracy')
+plt.title('Training and validation accuracy')
+plt.legend(loc='lower right')
+plt.figure()
+
+plt.plot(epochs, loss, 'r', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='validation loss')
+plt.title('Training and validation loss')
+plt.legend()
+plt.show()
