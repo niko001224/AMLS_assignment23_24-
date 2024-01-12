@@ -6,9 +6,11 @@ A: Binary classification task (using PneumoniaMNIST dataset). The objective is t
 B: Multi-class classification task (using PathMNIST dataset). The objective is to classify an image onto 9 different types of tissues. 
 
 1 Organization of the project:
+
 The main function runs the accuracy results for all model test set data, with folders A and B containing the pre-trained models and the modules to be implemented in the main function, respectively.
 
 2 Role of each file
+
 main.py : Accuracy test results for all classification models on the dataset can be obtained by running main.py
 
 Folder A : SVM.py, RandomForest.py, LogisticRegression.py, KNN.py are the pre-trained models using training and 
@@ -23,6 +25,7 @@ Folder Datasets: Folder PathMNIST includes data of TaskB with name 'pathmnist.np
                  Folder PneumoniaMNIST includes data of TaskB with name 'pneumoniamnist.npz'
 
 3  Packages required to run the code
+
 numpy
 tensorflow
 keras
