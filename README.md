@@ -2,6 +2,7 @@
 Assignment for AMLS
 
 The project contains two main tasks:
+
 A: Binary classification task (using PneumoniaMNIST dataset). The objective is to classify an image onto "Normal" (no pneumonia) or "Pneumonia" (presence of pneumonia)
 B: Multi-class classification task (using PathMNIST dataset). The objective is to classify an image onto 9 different types of tissues. 
 
@@ -27,10 +28,15 @@ Folder Datasets: Folder PathMNIST includes data of TaskB with name 'pathmnist.np
 3  Packages required to run the code
 
 numpy
+
 tensorflow
+
 keras
+
 sklearn
+
 matplotlib
+
           
 
 
