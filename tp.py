@@ -51,7 +51,7 @@ class CompletionMessageToolCall(BaseModel):
 class CompletionMessage(BaseModel):
     """
     {
-    "content": "hi",
+    "content": "hello",
     "refusal": "None",
     "role": "assistant",
     }
